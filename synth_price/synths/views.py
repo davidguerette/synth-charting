@@ -1,12 +1,15 @@
 from django.shortcuts import render
+from synths.models import Synth
+# from IPython import embed
 
 def index(request):
-    # dummy example values
-    synth_name = 'SH-101'
-    manufacturer = 'Roland'
-
+    synths = Synth.objects.all()
     return render(request, 'index.html', {
-        'synth': synth_name,
-        'manufacturer': manufacturer,
-        'year': ''
+        'synths': synths,
+    })
+
+def detail(request, slug):
+    synth = Synth.objects.get(slug=slug)
+    return render(request, 'synths/detail.html', {
+        'synth': synth,
     })
